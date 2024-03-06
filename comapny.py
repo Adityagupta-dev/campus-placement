@@ -59,10 +59,10 @@ def main():
     # Display company logo (placeholder image URLs)
     company_logo_urls = {
         "Google": "company_logos/Amazon_logo_PNG3.png",
-        "Microsoft": "https://example.com/microsoft_logo.png",
-        "Amazon": "https://example.com/amazon_logo.png",
-        "McKinsey & Company": "https://example.com/mckinsey_logo.png",
-        "J.P. Morgan Chase": "https://example.com/jpmorgan_logo.png",
+        "Microsoft": "company_logos/microsoft_PNG7.png",
+        "Amazon": "company_logos/Amazon_logo_PNG3.png",
+        "McKinsey & Company": "company_logos/McKinsey-Logo-PNG3.png",
+        "J.P. Morgan Chase": "company_logos/JP_Morgan_Chase_logo_PNG1.png",
     }
     company_logo_url = company_logo_urls.get(
         page, "https://example.com/default_logo.png")
