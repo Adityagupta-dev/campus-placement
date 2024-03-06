@@ -1,27 +1,40 @@
-import streamlit as st
+from flask import Flask, render_template, request
+import os
 
-# Function to fetch company details from the database
-def fetch_company_details(symbol):
-    conn = sqlite3.connect('company_profiles.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM companies WHERE symbol=?', (symbol,))
-    company_details = cursor.fetchone()
-    conn.close()
-    return company_details
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
-# Display company symbols and descriptions
-st.title("Company Information Portal")
+# Load your deepfake detection model here
 
-selected_company_symbol = st.selectbox("Select a company symbol:", options=["A", "B"])  # Replace with symbols fetched from database
 
-if st.button("View Details"):
-    # Fetch details from the database
-    company_details = fetch_company_details(selected_company_symbol)
-    if company_details:
-        st.subheader(selected_company_symbol)
-        st.write("**Description:**", company_details[2])
-        st.write("**Job Roles:**", company_details[3])
-        st.write("**Eligibility Criteria:**", company_details[4])
-        st.write("**Past Placement Statistics:**", company_details[5])
-    else:
-        st.write("Company details not found.")
+def detect_deepfake(video_path):
+    # Replace this with your actual deepfake detection code
+    # This is a placeholder that always returns "Fake" for demonstration purposes
+    return "Fake"
+
+
+@app.route('/')
+def index():
+    return render_template('index.html', result=None)
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    if 'video' not in request.files:
+        return render_template('index.html', result="No video file provided.")
+
+    video = request.files['video']
+
+    if video.filename == '':
+        return render_template('index.html', result="No selected video file.")
+
+    if video:
+        video_path = os.path.join(app.config['UPLOAD_FOLDER'], video.filename)
+        video.save(video_path)
+        result = detect_deepfake(video_path)
+        os.remove(video_path)  # Remove the uploaded video after processing
+        return render_template('index.html', result=result)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
