@@ -58,7 +58,7 @@ def main():
 
     # Display company logo (placeholder image URLs)
     company_logo_urls = {
-        "Google": "https://example.com/google_logo.png",
+        "Google": "company_logos/Amazon_logo_PNG3.png",
         "Microsoft": "https://example.com/microsoft_logo.png",
         "Amazon": "https://example.com/amazon_logo.png",
         "McKinsey & Company": "https://example.com/mckinsey_logo.png",
